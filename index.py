@@ -25,7 +25,7 @@ cd = ColorDescriptor((8, 12, 3))
 # open the output index file for writing
 output = open(args["index"], "w")
 # use glob to grab the image paths and loop over them
-for imagePath in glob.glob(args["dataset"] + "/*/*.jpg"):
+for imagePath in glob.glob(args["dataset"] + "./*/*.jpg"):
     # extract the image ID (i.e. the unique filename) from the image
     # path and load the image itself
     imageID = imagePath[imagePath.rfind("/") + 1 :]
