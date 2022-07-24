@@ -35,16 +35,9 @@ class App:
         img = ImageTk.PhotoImage(imageOpen.resize((256, 256),Image.LANCZOS))
         label = tk.Label(self.root, image = img)
         label.image = img
-        label.grid(row=2, column = 1)
-        # print(tk.Label(self.root, image=img,width=256, height=256).grid(row=2, column=1))
-        # label = tk.Label(self.root, image=img,width=256, height=256).grid(row=2, column=1)
-        
-        
-        
+        label.grid(row=2, column = 1) 
 
     def create_widgets(self):
-        # self.list_btn = tk.Button(self.root, text='List Images', command=self.list_images)
-        # self.list_btn.grid(row=0, column=0)
         self.list_btn = tk.Button(self.root, text='Choose file', command=self.chooseFile)
         self.list_btn.grid(row=0, column=0)
         self.show_btn = tk.Button(self.root, text='Search', command=self.show_images)
@@ -56,32 +49,15 @@ class App:
         self.text.image_filenames = []
         self.text.images = []
 
-    # def list_images(self):
-    #     ''' Create and display a list of the images the in folder that have one
-    #         of the specified extensions. '''
-    #     self.text.image_filenames.clear()
-    #     for filepath in Path(self.image_folder_path).iterdir():
-    #         if filepath.suffix in self.image_file_extensions:
-    #             self.text.insert(INSERT, filepath.name+'\n')
-    #             self.text.image_filenames.append(filepath)
-
     def show_images(self):
-        # initialize the image descriptor
         cd = ColorDescriptor((8, 12, 3))
 
-        # load the query image and describe it
         query = cv2.imread(self.image_query)
         features = cd.describe(query)
         searcher = Searcher("index.csv")
         results = searcher.search(features)
-        # self.text.image_filenames.clear()
-        # for filepath in Path(self.image_folder_path).iterdir():
-        #     if filepath.suffix in self.image_file_extensions:
-        #         self.text.insert(INSERT, filepath.name+'\n')
-        #         self.text.image_filenames.append(filepath)
-        self.text.delete('1.0', END)  # Clear current contents.
+        self.text.delete('1.0', END)  
         self.text.images.clear()
-        # Display images in Text widget.
         for result in results:
             link_image = result[1]
             img = Image.open(result[1]).resize((256, 256), Image.ANTIALIAS)
@@ -89,7 +65,7 @@ class App:
 
             self.text.insert(INSERT, result[1]+'\n')
             self.text.image_create(INSERT, padx=5, pady=5, image=img)
-            self.text.images.append(img)  # Keep a reference.
+            self.text.images.append(img)  
             self.text.insert(INSERT, '\n')
 
 
